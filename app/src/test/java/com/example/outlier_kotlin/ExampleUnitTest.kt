@@ -12,13 +12,33 @@ import org.junit.Before
  */
 class ExampleUnitTest {
 
+
     private val model = Model.instance
+
     @Test
-    fun addition_isCorrect() {
-        assertEquals(4, 2 + 2)
-    }
-    @Test
-    fun outlier_isCorrect(){
+    fun outlier_isCorrect_odd(){
         assertEquals(11,model?.findOutlier("2,4,0,100,4,11,2602,36"))
     }
+    @Test
+    fun outlier_isCorrect_even(){
+        assertEquals(160,model?.findOutlier("160,3,1719,19,11,13,-21 "))
+    }
+    @Test
+    fun outlier_isCorrect_3integers(){
+        assertEquals(2,model?.findOutlier("1,2,3"))
+    }
+    @Test
+    fun outlier_inputTooSmall(){
+        assertThrows(Exception::class.java){
+            model?.findOutlier("1,2")
+        }
+    }
+
+    @Test
+    fun outlier_manyOutliers(){
+        assertThrows(Exception::class.java){
+            model?.findOutlier("1,2,4,6,5,7")
+        }
+    }
+
 }
